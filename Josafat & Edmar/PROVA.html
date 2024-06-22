@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilha sem Repetição em JS</title>
+<style>
+    /* Estilos simples para os elementos da pilha */
+    .stack-container {
+        display: flex;
+        flex-direction: column-reverse; /* Pilha visual, último elemento no topo */
+        align-items: center;
+        margin-top: 20px;
+    }
+    .stack-item {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 5px;
+        width: 100px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h2>Pilha sem Repetição</h2>
+    <div class="stack-container" id="stack-container">
+        <!-- Aqui serão adicionados dinamicamente os elementos da pilha -->
+    </div>
+    <br>
+    <button onclick="pushToStack()">Push</button>
+    <button onclick="popFromStack()">Pop</button>
+    <script>
+        let stack = []; // Pilha implementada como um array simples
+        let uniqueSet = new Set(); // Conjunto para verificar elementos únicos
+
+        function updateStackView() {
+            const stackContainer = document.getElementById('stack-container');
+            stackContainer.innerHTML = ''; // Limpa o conteúdo existente
+
+            for (let i = stack.length - 1; i >= 0; i--) {
+                const item = stack[i];
+                const stackItemElement = document.createElement('div');
+                stackItemElement.classList.add('stack-item');
+                stackItemElement.textContent = item;
+                stackContainer.appendChild(stackItemElement);
+            }
+        }
+
+        function pushToStack() {
+            const newItem = prompt('Digite um item para adicionar à pilha:');
+            if (newItem !== null && newItem.trim() !== '') {
+                if (!uniqueSet.has(newItem)) {
+                    stack.push(newItem);
+                    uniqueSet.add(newItem);
+                    updateStackView();
+                } else {
+                    alert('Este item já está na pilha!');
+                }
+            } else {
+                alert('Por favor, digite um item válido.');
+            }
+        }
+
+        function popFromStack() {
+            if (stack.length > 0) {
+                const removedItem = stack.pop();
+                uniqueSet.delete(removedItem);
+                updateStackView();
+            } else {
+                alert('A pilha está vazia!');
+            }
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualização de Lista Ligada sem Repetição em JS</title>
+<style>
+    /* Estilos simples para os elementos da lista */
+    .list-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .list-item {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-right: 5px;
+        width: 100px;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h2>Lista Ligada Sem Repetição</h2>
+    <div class="list-container" id="list-container">
+        <!-- Aqui serão adicionados dinamicamente os elementos da lista ligada -->
+    </div>
+    <br>
+    <button onclick="addToLinkedList()">Adicionar</button>
+    <button onclick="removeFromLinkedList()">Remover</button>
+    <script>
+        class Node {
+            constructor(value) {
+                this.value = value;
+                this.next = null;
+            }
+        }
+
+        let head = null;
+        let linkedListSet = new Set(); // Conjunto para verificar elementos únicos
+
+        function updateLinkedListView() {
+            const listContainer = document.getElementById('list-container');
+            listContainer.innerHTML = ''; // Limpa o conteúdo existente
+
+            let currentNode = head;
+            while (currentNode !== null) {
+                const listItemElement = document.createElement('div');
+                listItemElement.classList.add('list-item');
+                listItemElement.textContent = currentNode.value;
+                listContainer.appendChild(listItemElement);
+                currentNode = currentNode.next;
+            }
+        }
+
+        function addToLinkedList() {
+            const newValue = prompt('Digite um valor para adicionar à lista:');
+            if (newValue && !linkedListSet.has(newValue)) {
+                const newNode = new Node(newValue);
+                newNode.next = head;
+                head = newNode;
+                linkedListSet.add(newValue);
+                updateLinkedListView();
+            } else if (linkedListSet.has(newValue)) {
+                alert('Este valor já está na lista!');
+            }
+        }
+
+        function removeFromLinkedList() {
+            if (head !== null) {
+                const removedValue = head.value;
+                head = head.next;
+                linkedListSet.delete(removedValue);
+                updateLinkedListView();
+            } else {
+                alert('A lista está vazia!');
+            }
+        }
+    </script>
+</body>
+</html>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visualização de Lista de Adjacências com D3.js</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .node {
+        cursor: pointer;
+        fill: #66c2a5; /* Cor do nó */
+        stroke: #333;
+        stroke-width: 2px;
+    }
+
+    .node-label {
+        font-size: 12px;
+        text-anchor: middle;
+        pointer-events: none; /* Impede que o texto interfira com o arrastar */
+    }
+
+    .adjacency-list {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+    }
+
+    .link {
+        stroke: #999;
+        stroke-width: 2px;
+    }
+</style>
+</head>
+<body>
+    <h1>Visualização de Lista de Adjacências com D3.js</h1>
+
+    <div>
+        <label for="verticeInput">Vértice:</label>
+        <input type="text" id="verticeInput">
+        <button onclick="adicionarVertice()">Adicionar Vértice</button>
+    </div>
+    <div>
+        <label for="arestaOrigemInput">Origem:</label>
+        <input type="text" id="arestaOrigemInput">
+        <label for="arestaDestinoInput">Destino:</label>
+        <input type="text" id="arestaDestinoInput">
+        <button onclick="adicionarAresta()">Adicionar Aresta</button>
+    </div>
+
+    <svg width="800" height="600"></svg>
+
+    <div id="adjacencyList" class="adjacency-list">
+        <h2>Lista de Adjacências</h2>
+        <ul id="adjList"></ul>
+    </div>
+
+    <script>
+        // Inicialização do SVG e do grafo
+        const svg = d3.select('svg');
+        const width = +svg.attr('width');
+        const height = +svg.attr('height');
+
+        let grafo = {};
+        let nodes = [];
+        let links = [];
+
+        // Função para adicionar um vértice ao grafo e atualizar a visualização
+        function adicionarVertice() {
+            const vertice = document.getElementById('verticeInput').value.trim();
+            if (vertice !== '') {
+                if (!grafo.hasOwnProperty(vertice)) {
+                    grafo[vertice] = [];
+                    nodes.push({ id: vertice });
+                    atualizarGrafo();
+                    atualizarListaAdjacencias();
+                } else {
+                    alert(`O vértice '${vertice}' já existe.`);
+                }
+                document.getElementById('verticeInput').value = '';
+            }
+        }
+
+        // Função para adicionar uma aresta ao grafo e atualizar a visualização
+        function adicionarAresta() {
+            const origem = document.getElementById('arestaOrigemInput').value.trim();
+            const destino = document.getElementById('arestaDestinoInput').value.trim();
+            if (origem !== '' && destino !== '') {
+                if (grafo.hasOwnProperty(origem) && grafo.hasOwnProperty(destino)) {
+                    grafo[origem].push(destino);
+                    links.push({ source: origem, target: destino });
+                    atualizarGrafo();
+                    atualizarListaAdjacencias();
+                } else {
+                    alert('Ambos os vértices devem existir.');
+                }
+                document.getElementById('arestaOrigemInput').value = '';
+                document.getElementById('arestaDestinoInput').value = '';
+            }
+        }
+
+        // Função para atualizar a visualização do grafo
+        function atualizarGrafo() {
+            // Links
+            const link = svg.selectAll('.link')
+                .data(links)
+                .join('line')
+                .attr('class', 'link')
+                .attr('stroke', '#999')
+                .attr('stroke-width', 2);
+
+            // Nós
+            const node = svg.selectAll('.node')
+                .data(nodes, d => d.id)
+                .join(enter => enter.append('circle')
+                    .attr('class', 'node')
+                    .attr('r', 20) // Tamanho do nó aumentado para melhor visibilidade
+                    .attr('fill', '#66c2a5') // Cor do nó
+                    .attr('stroke', '#333')
+                    .attr('stroke-width', 2)
+                    .call(drag(simulation)))
+                .on('mouseover', mouseover)
+                .on('mouseout', mouseout);
+
+            // Adiciona rótulos para os nós
+            const labels = svg.selectAll('.node-label')
+                .data(nodes, d => d.id)
+                .join('text')
+                .attr('class', 'node-label')
+                .attr('dy', 4)
+                .text(d => d.id);
+
+            // Atualiza a simulação de forças
+            simulation.nodes(nodes);
+            simulation.force('link').links(links);
+            simulation.alpha(1).restart();
+        }
+
+        // Função para atualizar a lista de adjacências
+        function atualizarListaAdjacencias() {
+            const adjListElement = d3.select('#adjList');
+            adjListElement.selectAll('li').remove();
+
+            for (const vertice in grafo) {
+                const adjacencias = grafo[vertice].join(', ');
+                adjListElement.append('li')
+                    .text(`${vertice} -> ${adjacencias}`);
+            }
+        }
+
+        // Função de arrastar
+        function drag(simulation) {
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+            }
+
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+
+            return d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended);
+        }
+
+        // Função para destacar nós e arestas ao passar o mouse
+        function mouseover(event, d) {
+            svg.selectAll('.node')
+                .style('opacity', 0.2);
+            svg.selectAll('.link')
+                .style('opacity', link => link.source === d || link.target === d ? 1 : 0.2);
+            d3.select(this)
+                .style('opacity', 1);
+        }
+
+        function mouseout(event, d) {
+            svg.selectAll('.node, .link')
+                .style('opacity', 1);
+        }
+
+        // Criando a simulação de forças
+        const simulation = d3.forceSimulation(nodes)
+            .force('link', d3.forceLink(links).id(d => d.id).distance(200))
+            .force('charge', d3.forceManyBody().strength(-400))
+            .force('center', d3.forceCenter(width / 2, height / 2))
+            .on('tick', () => {
+                svg.selectAll('.link')
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                svg.selectAll('.node')
+                    .attr('cx', d => d.x)
+                    .attr('cy', d => d.y);
+
+                svg.selectAll('.node-label')
+                    .attr('x', d => d.x)
+                    .attr('y', d => d.y);
+            });
+    </script>
+</body>
+</html>
+
+
