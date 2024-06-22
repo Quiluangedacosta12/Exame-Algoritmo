@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pilha sem Repetição em JS</title>
-<style>
-    /* Estilos simples para os elementos da pilha */
-    .stack-container {
-        display: flex;
-        flex-direction: column-reverse; /* Pilha visual, último elemento no topo */
-        align-items: center;
-        margin-top: 20px;
-    }
-    .stack-item {
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-top: 5px;
-        width: 100px;
-        text-align: center;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilha sem Repetição em JS</title>
+    <style>
+        /* Estilos simples para os elementos da pilha */
+        
+        .stack-container {
+            display: flex;
+            flex-direction: column;
+            /* Pilha visual, último elemento no topo */
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .stack-item {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 5px;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
-    <h2>Pilha sem Repetição</h2>
+    <h2>Pilha</h2>
     <div class="stack-container" id="stack-container">
         <!-- Aqui serão adicionados dinamicamente os elementos da pilha -->
     </div>
     <br>
-    <button onclick="pushToStack()">Push</button>
-    <button onclick="popFromStack()">Pop</button>
+    <button onclick="pushToStack()">Iserir node</button>
+    <button onclick="popFromStack()">Eliminar node</button>
     <script>
         let stack = []; // Pilha implementada como um array simples
         let uniqueSet = new Set(); // Conjunto para verificar elementos únicos
@@ -73,31 +78,36 @@
         }
     </script>
 </body>
+
 </html>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visualização de Lista Ligada sem Repetição em JS</title>
-<style>
-    /* Estilos simples para os elementos da lista */
-    .list-container {
-        display: flex;
-        align-items: center;
-        margin-top: 20px;
-    }
-    .list-item {
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-right: 5px;
-        width: 100px;
-        text-align: center;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Lista Ligada sem Repetição em JS</title>
+    <style>
+        /* Estilos simples para os elementos da lista */
+        
+        .list-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .list-item {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-right: 5px;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
     <h2>Lista Ligada Sem Repetição</h2>
     <div class="list-container" id="list-container">
@@ -156,49 +166,55 @@
         }
     </script>
 </body>
+
 </html>
+
 </html>
 
 
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visualização de Lista de Adjacências com D3.js</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    .node {
-        cursor: pointer;
-        fill: #66c2a5; /* Cor do nó */
-        stroke: #333;
-        stroke-width: 2px;
-    }
-
-    .node-label {
-        font-size: 12px;
-        text-anchor: middle;
-        pointer-events: none; /* Impede que o texto interfira com o arrastar */
-    }
-
-    .adjacency-list {
-        margin-top: 20px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        background-color: #f0f0f0;
-    }
-
-    .link {
-        stroke: #999;
-        stroke-width: 2px;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualização de Lista de Adjacências com D3.js</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        .node {
+            cursor: pointer;
+            fill: #66c2a5;
+            /* Cor do nó */
+            stroke: #333;
+            stroke-width: 2px;
+        }
+        
+        .node-label {
+            font-size: 12px;
+            text-anchor: middle;
+            pointer-events: none;
+            /* Impede que o texto interfira com o arrastar */
+        }
+        
+        .adjacency-list {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+        }
+        
+        .link {
+            stroke: #999;
+            stroke-width: 2px;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Visualização de Lista de Adjacências com D3.js</h1>
 
@@ -238,7 +254,9 @@
             if (vertice !== '') {
                 if (!grafo.hasOwnProperty(vertice)) {
                     grafo[vertice] = [];
-                    nodes.push({ id: vertice });
+                    nodes.push({
+                        id: vertice
+                    });
                     atualizarGrafo();
                     atualizarListaAdjacencias();
                 } else {
@@ -255,7 +273,10 @@
             if (origem !== '' && destino !== '') {
                 if (grafo.hasOwnProperty(origem) && grafo.hasOwnProperty(destino)) {
                     grafo[origem].push(destino);
-                    links.push({ source: origem, target: destino });
+                    links.push({
+                        source: origem,
+                        target: destino
+                    });
                     atualizarGrafo();
                     atualizarListaAdjacencias();
                 } else {
@@ -377,6 +398,5 @@
             });
     </script>
 </body>
+
 </html>
-
-
